@@ -38,8 +38,6 @@ public class OperationChainingDemoService extends StatefulService {
 					logInfo("operation1 completed");
 				}));
 		
-		sendWithDeferredResult(operation1);
-		
 		SamplePreviousEchoService.EchoServiceState message2 = new SamplePreviousEchoService.EchoServiceState();
 		message2.message = "message2";
 		
