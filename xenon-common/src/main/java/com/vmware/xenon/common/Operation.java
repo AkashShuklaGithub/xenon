@@ -465,6 +465,15 @@ public class Operation implements Cloneable {
     public static final String TRANSFER_ENCODING_HEADER = "transfer-encoding";
     public static final String CHUNKED_ENCODING = "chunked";
     public static final String LAST_EVENT_ID_HEADER = "last-event-id";
+    
+    /**
+     * Operation headers for forcing Operation-level strong or eventual consistency
+     * Per operation, at runtime overrides the parent service's cap definitions
+     *
+     * Can be used on POST, PUT operations particularly
+     */
+    public static final String FORCE_STRONG_CONSISTENCY_HEADER = "force-strong-consistency";
+    public static final String FORCE_EVENTUAL_CONSISTENCY_HEADER = "force-eventual-consitency";
 
     // HTTP2 Header definitions
     public static final String STREAM_ID_HEADER = "x-http2-stream-id";

@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.vmware.xenon.common.NodeSelectorService;
@@ -121,8 +122,13 @@ public class NodeSelectorReplicationService extends StatelessService {
             replicateUpdateToNodes(context);
             return;
         }
-
-        if (req.serviceOptions.contains(ServiceOption.OWNER_SELECTION)) {
+    
+        if ((req.serviceOptions.contains(ServiceOption.OWNER_SELECTION) && !Optional.ofNullable(outboundOp.getRequestHeader(Operation.FORCE_EVENTUAL_CONSISTENCY_HEADER)).isPresent())
+                || (!req.serviceOptions.contains(ServiceOption.OWNER_SELECTION) && Optional.ofNullable(outboundOp.getRequestHeader(Operation.FORCE_STRONG_CONSISTENCY_HEADER)).isPresent())
+                ) {
+        
+            // CASE : Strong Consistency
+            
             // replicate using node selector replication quorum or group membership quorum
             if (location == null) {
                 // membership quorum used if
@@ -139,15 +145,17 @@ public class NodeSelectorReplicationService extends StatelessService {
                 }
             }
             replicateUpdateToNodes(context);
-            return;
+        } else {
+            
+            // CASE : Eventual Consistency
+            
+            // When quorum is not required, succeed when we replicate to at least one remote node,
+            // or, if only local node is available, succeed immediately.
+            context.successThreshold = Math.min(2, eligibleMemberCount - 1);
+            context.failureThreshold = (eligibleMemberCount - context.successThreshold) + 1;
+    
+            replicateUpdateToNodes(context);
         }
-
-        // When quorum is not required, succeed when we replicate to at least one remote node,
-        // or, if only local node is available, succeed immediately.
-        context.successThreshold = Math.min(2, eligibleMemberCount - 1);
-        context.failureThreshold = (eligibleMemberCount - context.successThreshold) + 1;
-
-        replicateUpdateToNodes(context);
     }
 
     /**
