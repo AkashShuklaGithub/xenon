@@ -149,7 +149,7 @@ export class SeedConfig {
      * `index.html`.
      * @type {string}
      */
-    APP_TITLE = 'Xenon | Decentralized Control Plane';
+    APP_TITLE = 'Radon | Decentralized Control Plane';
 
     /**
      * The base folder of the applications source files.

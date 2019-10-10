@@ -252,7 +252,7 @@ export class NodeInfoPanelComponent implements OnChanges, AfterViewInit, OnDestr
                     type: 'ERROR',
                     messages: [`Failed to retrieve node details: [${error.statusCode}] ${error.message}.<br>
                         If this node is not in the default node group, try accessing its own
-                        <a href="${url}" target="_blank">Xenon UI</a>`]
+                        <a href="${url}" target="_blank">Radon UI</a>`]
                 }]);
             });
     }

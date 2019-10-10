@@ -1,7 +1,7 @@
 {
     "name": "xenon-ui",
     "version": "0.5.0",
-    "description": "Xenon UI",
+    "description": "Radon UI",
     "scripts": {
         "build.desktop.mac": "rimraf desktop/mac/* && gulp desktop.mac --desktop --desktopBuild",
         "build.desktop.windows": "rimraf desktop/windows/* && gulp desktop.windows --desktop --desktopBuild",

@@ -56,7 +56,7 @@ export class SeedAdvancedConfig extends SeedConfig {
         this.BOOTSTRAP_PROD_MODULE = `${this.BOOTSTRAP_DIR}${bootstrap}`;
         this.BOOTSTRAP_FACTORY_PROD_MODULE = `${this.BOOTSTRAP_DIR}${bootstrap}.prod`;
 
-        this.APP_TITLE = 'Xenon | Decentralized Control Plane';
+        this.APP_TITLE = 'Radon | Decentralized Control Plane';
 
         // Advanced seed packages
         let additionalPackages: ExtendPackages[] = [
